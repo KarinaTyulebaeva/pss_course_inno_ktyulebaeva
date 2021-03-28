@@ -14,8 +14,9 @@
 //Director : RedLevel
 //Admin: RedLevel
 
-
+//f
 using namespace std;
+
 
 class UniversityAccessSystem{
 public:
@@ -31,90 +32,61 @@ public:
 class NoLevel : public UniversityAccessSystem{
 public:
     void OpenClassRoom(string name, int number) override {
-        cout<<name<<", You don't have access for any room ";
+        cout<<name<<", You don't have access for Class room ";
     }
     void OpenLectureRoom(string name, int number) override {
-        cout<<name<<", You don't have access for any room ";
+        cout<<name<<", You don't have access for Lecture room ";
     }
     void OpenCabinet(string name, int number) override {
-        cout<<name<<", You don't have access for any room ";
+        cout<<name<<", You don't have access for Cabinet ";
     }
     void OpenConferenceRoom(string name, int number) override {
-        cout<<name<<", You don't have access for any room ";
+        cout<<name<<", You don't have access for Conference room ";
     }
     void OpenDirectorCabinet(string name) override {
-        cout<<name<<", You don't have access for any room ";
+        cout<<name<<", You don't have access for Director room ";
     }
 };
 
-class GreenLevel : public UniversityAccessSystem{
+class BlueLevel : public NoLevel{
+public:
+    void OpenLectureRoom(string name, int number) {
+        if(number==105 || number==106 || number==107 || number==108)
+            cout<<name<<" opened a "<<number<<" Lecture Room ";
+        else cout<<name<<" try to open "<<number<<" Lecture Room, but we have only 105, 106, 107 or 108 Lecture Room. You can! However, you try to open not a Lecture Room ";
+    }
+    void OpenConferenceRoom(string name, int number) override{
+        if(number==1 ||  number ==2 || number==3)
+            cout<<name<<" opened a "<<number<<" Conference Room ";
+        else cout<<name<<" try to open "<<number<<" Conferene Room, but we have only 1st, 2nd and 3rd Conference Room. You can! However, you try to open not a Conference Room ";
+    }
+
+
+};
+
+class GreenLevel : public BlueLevel{
 public:
     void OpenClassRoom(string name, int number) {
         if(number>200 && number<400)
             cout<<name<<" opened a "<<number<<" Class Room ";
         else cout<<name<<" try to open "<<number<<" Class Room, but we have only Class Room numbers from 200 to 300. You can! However, you try to open not a Class Room ";
     }
-    void OpenLectureRoom(string name, int number) {
-        if(number==105 || number==106 || number==107 || number==108)
-            cout<<name<<" opened a "<<number<<" Lecture Room ";
-        else cout<<name<<" try to open "<<number<<" Lecture Room, but we have only 105, 106, 107 or 108 Lecture Room. You can! However, you try to open not a Lecture Room ";
-    }
-    void OpenCabinet(string name, int number) override {
-        cout<<name<<", You don't have access for Cabinet ";
-    }
-    void OpenConferenceRoom(string name, int number) override {
-        cout<<name<<", You don't have access for Conference Room ";
-    }
-    void OpenDirectorCabinet(string name) override {
-        cout<<name<<", You don't have access for Director Cabinet ";
-    }
-
 };
 
-class YellowLevel : public UniversityAccessSystem{
+class YellowLevel : public GreenLevel{
 
 public:
 
-    void OpenClassRoom(string name, int number)override {
-        if(number>200 && number<400)
-            cout<<name<<" opened a "<<number<<" Class Room ";
-        else cout<<name<<" try to open "<<number<<" Class Room, but we have only Class Room numbers from 200 to 300. You can! However, you try to open not a Class Room ";
-    }
-    void OpenLectureRoom(string name, int number) override{
-        if(number==105 || number==106 || number==107 || number==108)
-            cout<<name<<" opened a "<<number<<" Lecture Room";
-        else cout<<name<<" try to open "<<number<<" Lecture Room, but we have only 105, 106, 107 or 108 Lecture Room. You can! However, you try to open not a Lecture Room ";
-    }
     void OpenCabinet(string name, int number) override{
         if(number>400 && number<500)
             cout<<name<<" opened a "<<number<<" Cabinet ";
         else cout<<name<<" try to open "<<number<<" Cabinet, but we have only Cabinet numbers from 400 to 500. You can! However, you try to open not a Cabinet ";
     }
-    void OpenConferenceRoom(string name, int number) override {
-        cout<<name<<", You don't have access for Conference Room ";
-    }
-    void OpenDirectorCabinet(string name) override {
-        cout<<name<<", You don't have access for Director Cabinet ";
-    }
+
 };
 
-class RedLevel : public UniversityAccessSystem{
+class RedLevel : public YellowLevel{
 public:
-    void OpenClassRoom(string name, int number) override{
-        if(number>200 && number<400)
-            cout<<name<<" opened a "<<number<<" Class Room ";
-        else cout<<name<<" try to open "<<number<<" Class Room, but we have only Class Room numbers from 200 to 300. You can! However, you try to open not a Class Room ";
-    }
-    void OpenLectureRoom(string name, int number) override{
-        if(number==105 || number==106 || number==107 || number==108)
-            cout<<name<<" opened a "<<number<<" Lecture Room ";
-        else cout<<name<<" try to open "<<number<<" Lecture Room, but we have only 105, 106, 107 or 108 Lecture Room. You can! However, you try to open not a Lecture Room ";
-    }
-    void OpenCabinet(string name, int number) override{
-        if(number>400 && number<500)
-            cout<<name<<" opened a "<<number<<" Cabinet ";
-        else cout<<name<<" try to open "<<number<<" Cabinet, but we have only Cabinet numbers from 400 to 500. You can! However, you try to open not a Cabinet ";
-    }
     void OpenConferenceRoom(string name, int number) override{
         if(number==1 ||  number ==2 || number==3)
             cout<<name<<" opened a "<<number<<" Conference Room ";
@@ -128,10 +100,12 @@ public:
 
 class Human {
 public:
+
     string name;
     Human(string Name){
         this->name=Name;
     }
+
 };
 
 class Student : public Human, public GreenLevel{
@@ -167,7 +141,7 @@ public:
     Admin(string Name) :  Human(Name){
         this->name=Name;
     }
-    //additional function for Admins which can give someone temprorary access for any room except Director Cabinet
+    //additional function for Admins which can give someone temporary access for any room except Director Cabinet
     void GetAdditionalAccess(Human human, int number, string AdminName){
         string Name=human.name;
         Admin *TempAdminForOneSession= new Admin(AdminName);
@@ -194,7 +168,7 @@ public:
     }
 };
 
-class Guest : public Human, public NoLevel{
+class Guest : public Human, public BlueLevel{
 public:
     Guest(string Name) : Human(Name){
         this->name=Name;
@@ -207,9 +181,42 @@ vector<LabEmployee> employees;
 vector<Director> directors;
 vector<Admin> admins;
 vector<Guest> guests;
+int Emergency=0;
 
+//Just a random function to create different actions for users randomly
+//In this function we suppose that :
+//RandomFunction= random type of function
+//RandomNumberOfHuman= random number of explicit human type
+//If Emergency Situation, we flag Emergency=1 and call the random function for explicit human by
+//admins access
+
+template<typename T>
+void Random(vector<T>& humans){
+    int randomFunction=(rand()%5)+1;
+    int randomNumberOfHumans=rand()%humans.size();
+    if(Emergency==1){
+        vector<Admin> tempAdmin;
+        Admin admin(humans[randomNumberOfHumans].name);
+        tempAdmin.push_back(admin);
+        cout<<"!!!Fire alarm triggered!!!..Wiu Wiu Wiu.."<<endl;
+        Emergency=0;
+        Random(tempAdmin);
+
+    }
+      else  if (randomFunction == 1) {
+        humans[randomNumberOfHumans].OpenClassRoom(humans[randomNumberOfHumans].name, (rand() % 499) + 1);
+    } else if (randomFunction == 2) {
+        humans[randomNumberOfHumans].OpenLectureRoom(humans[randomNumberOfHumans].name, (rand() % 499) + 1);
+    } else if (randomFunction == 3) {
+        humans[randomNumberOfHumans].OpenCabinet(humans[randomNumberOfHumans].name, (rand() % 499) + 1);
+    } else if (randomFunction == 4) {
+        humans[randomNumberOfHumans].OpenConferenceRoom(humans[randomNumberOfHumans].name,
+                                                        (rand() % 499) + 1);
+    } else {
+        humans[randomNumberOfHumans].OpenDirectorCabinet(humans[randomNumberOfHumans].name);
+    }
+}
 int main() {
-    void Random();
 
     int decision;
     string name;
@@ -292,7 +299,15 @@ int main() {
     int n;
     cin>>n;
     for(int i=0; i<n; i++){
-        Random();
+        //RandomHuman= random type of human ( from 1 to 6, where 1-student, 6-guest)
+        int RandomHuman = (rand() % 6) + 1;
+        if(i==(n-2) || i==(n-3)) Emergency=1;
+        else if(RandomHuman==1) Random(students);
+        else if (RandomHuman==2) Random(professors);
+        else if(RandomHuman==3) Random(employees);
+        else if(RandomHuman==4) Random(directors);
+        else if(RandomHuman==5) Random(admins);
+        else Random(guests);
         cout<<endl<<endl;
     }
 
@@ -300,105 +315,8 @@ int main() {
     return 0;
 }
 
-//Just a random function to create different actions for users randomly
-//In this function we suppose that :
-//RandomHuman= random type of human ( from 1 to 6, where 1-student, 6-guest)
-//RandomFunction= random type of function
-//RandomNumberOfHuman= random number of explicit human
-void Random() {
 
-    int RandomHuman = (rand() % 6) + 1;
-    int RandomFunction = (rand() % 5) + 1;
-    int RandomNumberOfHuman;
-    switch (RandomHuman) {
-        case 1:
-            RandomNumberOfHuman = rand() % students.size();
-            if (RandomFunction == 1) {
-                students[RandomNumberOfHuman].OpenClassRoom(students[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else if (RandomFunction == 2) {
-                students[RandomNumberOfHuman].OpenLectureRoom(students[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else if (RandomFunction == 3) {
-                students[RandomNumberOfHuman].OpenCabinet(students[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else if (RandomFunction == 4) {
-                students[RandomNumberOfHuman].OpenConferenceRoom(students[RandomNumberOfHuman].name,
-                                                                 (rand() % 499) + 1);
-            } else {
-                students[RandomNumberOfHuman].OpenDirectorCabinet(students[RandomNumberOfHuman].name);
-            }
-            break;
-        case 2:
-            RandomNumberOfHuman = rand() % employees.size();
-            if (RandomFunction == 1) {
-                employees[RandomNumberOfHuman].OpenClassRoom(employees[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else if (RandomFunction == 2) {
-                employees[RandomNumberOfHuman].OpenLectureRoom(employees[RandomNumberOfHuman].name,(rand() % 499) + 1);
-            } else if (RandomFunction == 3) {
-                employees[RandomNumberOfHuman].OpenCabinet(employees[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else if (RandomFunction == 4) {
-                employees[RandomNumberOfHuman].OpenConferenceRoom(employees[RandomNumberOfHuman].name,(rand() % 499) + 1);
-            } else {
-                employees[RandomNumberOfHuman].OpenDirectorCabinet(employees[RandomNumberOfHuman].name);
-            }
-            break;
-        case 3:
-            RandomNumberOfHuman = rand() % admins.size();
-            if (RandomFunction == 1) {
-                admins[RandomNumberOfHuman].OpenClassRoom(admins[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else if (RandomFunction == 2) {
-                admins[RandomNumberOfHuman].OpenLectureRoom(admins[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else if (RandomFunction == 3) {
-                admins[RandomNumberOfHuman].OpenCabinet(admins[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else if (RandomFunction == 4) {
-                admins[RandomNumberOfHuman].OpenConferenceRoom(admins[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else {
-                admins[RandomNumberOfHuman].OpenDirectorCabinet(admins[RandomNumberOfHuman].name);
-            }
-            break;
-        case 4:
-            RandomNumberOfHuman = rand() % directors.size();
-            if (RandomFunction == 1) {
-                directors[RandomNumberOfHuman].OpenClassRoom(directors[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else if (RandomFunction == 2) {
-                directors[RandomNumberOfHuman].OpenLectureRoom(directors[RandomNumberOfHuman].name,
-                                                               (rand() % 499) + 1);
-            } else if (RandomFunction == 3) {
-                directors[RandomNumberOfHuman].OpenCabinet(directors[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else if (RandomFunction == 4) {
-                directors[RandomNumberOfHuman].OpenConferenceRoom(directors[RandomNumberOfHuman].name,
-                                                                  (rand() % 499) + 1);
-            } else {
-                directors[RandomNumberOfHuman].OpenDirectorCabinet(directors[RandomNumberOfHuman].name);
-            }
-            break;
-        case 5:
-            RandomNumberOfHuman = rand() % admins.size();
-            if (RandomFunction == 1) {
-                admins[RandomNumberOfHuman].OpenClassRoom(admins[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else if (RandomFunction == 2) {
-                admins[RandomNumberOfHuman].OpenLectureRoom(admins[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else if (RandomFunction == 3) {
-                admins[RandomNumberOfHuman].OpenCabinet(admins[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else if (RandomFunction == 4) {
-                admins[RandomNumberOfHuman].OpenConferenceRoom(admins[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else {
-                admins[RandomNumberOfHuman].OpenDirectorCabinet(admins[RandomNumberOfHuman].name);
-            }
-            break;
-        case 6:
 
-            RandomNumberOfHuman = rand() % guests.size();
-            if (RandomFunction == 1) {
-                guests[RandomNumberOfHuman].OpenClassRoom(guests[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else if (RandomFunction == 2) {
-                guests[RandomNumberOfHuman].OpenLectureRoom(guests[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else if (RandomFunction == 3) {
-                guests[RandomNumberOfHuman].OpenCabinet(guests[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else if (RandomFunction == 4) {
-                guests[RandomNumberOfHuman].OpenConferenceRoom(guests[RandomNumberOfHuman].name, (rand() % 499) + 1);
-            } else {
-                guests[RandomNumberOfHuman].OpenDirectorCabinet(guests[RandomNumberOfHuman].name);
-            }
-            break;
 
-    }
-}
+
+
