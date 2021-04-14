@@ -4,29 +4,47 @@
 
 #ifndef UNTITLED13_PASSENGERGATEWAY_H
 #define UNTITLED13_PASSENGERGATEWAY_H
+
 #include <string>
 #include <vector>
 #include <iostream>
 #include "Passenger.h"
+#include "Order.h"
+#include "DriverGateway.h"
+
 using namespace std;
 
 class PassengerGateway {
+public:
+    vector<Passenger> passengersDatabase;
 
-   vector<Passenger> passengersDatabase;
-    Passenger currentPassenger;
-    PassengerGateway(Passenger passenger);
+    inline PassengerGateway() = default;
 
+    //  int index;
+    Passenger currentPassenger; //=passengersDatabase[index];
     void seeOrderHistory();
+
     void seePaymentMethods();
+
     void addPaymentMethod(string newMethod);
+
     void deletePaymentMethod(int number);
+
     void seePinnedAddresses();
+
     void addPinnedAddress(string newAddress);
+
     void deletePinnedAddress(int number);
-    void checkRide(string from, string to, int carType);
-    void
 
+    double checkRide(string from, string to, int carType);
 
+    void orderRide(Order order, DriverGateway DriverInterface, int type);
+
+    void StartRide(Order order, Driver driver, DriverGateway DriverInterface, int type);
+
+    void FinishRide(Order order, Driver driver, DriverGateway DriverInterface);
+
+    void askCurrentCoordinates();
 };
 
 

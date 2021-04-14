@@ -4,8 +4,11 @@
 
 #ifndef UNTITLED13_ORDER_H
 #define UNTITLED13_ORDER_H
+
 #include <string>
 #include <iostream>
+#include <vector>
+
 using namespace std;
 
 
@@ -13,10 +16,14 @@ class Order {
     string from;
     string to;
     double price;
+
 public:
     Order(string AddressFrom, string AddressTo, double cost);
+
     string getFrom();
+
     string getTo();
+
     double getPrice();
 };
 

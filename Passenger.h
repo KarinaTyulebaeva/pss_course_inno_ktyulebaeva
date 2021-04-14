@@ -4,24 +4,36 @@
 
 #ifndef UNTITLED13_PASSENGER_H
 #define UNTITLED13_PASSENGER_H
+
 #include <string>
 #include <vector>
 #include <iostream>
 #include "Order.h"
-#include "PassengerGateway.h"
+
 using namespace std;
 
 class Passenger {
-  string name;
-  double rating;
-  vector<Order> orderHistory;
-  vector<string> paymentMethods;
-  vector<string> pinnedAddresses;
+    string name;
+    double rating;
+    string login;
+    string password;
+    vector<Order> orderHistory;
+    vector<string> paymentMethods;
+    vector<string> pinnedAddresses;
 public:
-    string getName();
-    double getRating();
-    friend class PassengerGateway;
+    Passenger();
 
+    Passenger(string Name, string Login, string Password, double Rating, string PayemtMethods, string PinnedAddresses);
+
+    string getName();
+
+    double getRating();
+
+    string getLogin();
+
+    string getPassword();
+
+    friend class PassengerGateway;
 };
 
 

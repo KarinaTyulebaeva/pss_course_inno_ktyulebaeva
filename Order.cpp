@@ -5,9 +5,9 @@
 #include "Order.h"
 
 Order::Order(string AddressFrom, string AddressTo, double cost) {
-    this->from=AddressFrom;
-    this->to=AddressTo;
-    this->price=cost;
+    this->from = AddressFrom;
+    this->to = AddressTo;
+    this->price = cost;
 
 }
 
